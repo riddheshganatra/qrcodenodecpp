@@ -1,6 +1,7 @@
 #include <DataProcessingAsyncWorker.h>
 #include <qrencode.h>
 #include <png.h>
+#include <iostream>
 
 // start of qrcode helper function
 //* code copied from existing package https://github.com/netoxygen/node-qrcodeine
@@ -122,10 +123,10 @@ DataProcessingAsyncWorker::DataProcessingAsyncWorker(int count,
 void DataProcessingAsyncWorker::Execute()
 {
 
+    std::cout << "processing started \n";
     //! generate qrcode logic start(Main logic)
     for (int i = 0; i < count; i++)
     {
-
         Qrc_Params *params = ValidateArgs("testing");
 
         QRcode *code = Encode(params);
@@ -204,5 +205,6 @@ void DataProcessingAsyncWorker::Execute()
 //! here we can also give data back from C++ to javascript
 void DataProcessingAsyncWorker::OnOK()
 {
+    std::cout << "processing done\n";
     Callback().Call({});
 }
